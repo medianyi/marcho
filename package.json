@@ -19,7 +19,8 @@
     "gulp-sass": "^5.0.0",
     "gulp-uglify": "^3.0.2",
     "jquery": "^3.6.0",
-    "sass": "^1.43.2"
+    "sass": "^1.43.2",
+    "slick-carousel": "^1.8.1"
   },
   "dependencies": {
     "@dcloudio/uni-ui": "^1.4.6"
