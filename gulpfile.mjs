@@ -14,7 +14,10 @@ const sassCompilerInstance = sass(sassCompiler);
 const browserSyncInstance = browserSync.create();
 
 async function styles() {
-  return src('app/scss/style.scss')
+  return src([
+    'app/scss/style.scss',
+    'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.css' // Путь к вашему CSS файлу
+  ])
     .pipe(autoprefixer({
       overrideBrowserslist: ['last 10 versions'],
       grid: true
@@ -27,9 +30,10 @@ async function styles() {
 
 function scripts() {
   return src([
-    'node_modules/jquery/dist/jquery.js',
-    'node_modules/slick-carousel/slick/slick.js',
-    'app/js/main.js'
+    'node_modules/jquery/dist/jquery.js', // jQuery
+    'node_modules/slick-carousel/slick/slick.js', // Slick
+    'app/js/jquery.fancybox.min.js', // Slick
+    'app/js/main.js' // Ваш файл с инициализацие'
   ])
     .pipe(concat('main.min.js'))
     .pipe(uglify.default())

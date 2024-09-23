@@ -2,8 +2,9 @@ $(function () {
   $('.top-slider__inner').slick({
     dots: true,
     arrows: false,
-    fade: true, 
+    fade: true,
     autoplay: true,
     autoplaySpeed: 2000,
-  })
+  });
+  $('[data-fancybox]').fancybox();
 });
