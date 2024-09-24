@@ -32,7 +32,8 @@ function scripts() {
   return src([
     'node_modules/jquery/dist/jquery.js', // jQuery
     'node_modules/slick-carousel/slick/slick.js', // Slick
-    'app/js/jquery.fancybox.min.js', // Slick
+    'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.js', // Slick
+    'node_modules/rateyo/src/jquery.rateyo.js',
     'app/js/main.js' // Ваш файл с инициализацие'
   ])
     .pipe(concat('main.min.js'))
