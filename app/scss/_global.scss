@@ -1,9 +1,9 @@
 html,
-body{
+body {
   height: 100%;
 }
 
-body{
+body {
   color: $default;
   font-size: 16px;
   line-height: 26px;
@@ -12,24 +12,22 @@ body{
   flex-direction: column;
 }
 
-.main{
+.main {
   flex-grow: 1;
 }
 
-.container{
+.container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 15px;
 }
 
-
-a{
+a {
   color: $default;
   font-size: 16px;
   line-height: 26px;
   @extend %quicksand-500;
 }
-
 
 .title {
   text-align: center;
@@ -45,4 +43,46 @@ a{
   text-align: center;
   max-width: 570px;
   margin: 0 auto 55px;
+}
+
+.breadcrumbs {
+  display: inline-flex;
+  justify-content: center;
+  padding-left: 25px;
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    background-image: url("../images/icons/home-icon.svg");
+    width: 16px;
+    height: 16px;
+    left: 0;
+    top: 4px;
+  }
+  &__list {
+    display: flex;
+  }
+  &__item {
+    color: #727272;
+    padding-right: 40px;
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      background-image: url("../images/icons/arrow-right.svg");
+      width: 9px;
+      height: 10px;
+      right: 15px;
+      top: 9px;
+    }
+    &:last-child {
+      color: $accent;
+      &::after{
+        display: none;
+      }
+    }
+  }
+  &__link {
+    color: inherit;
+  }
 }
