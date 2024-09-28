@@ -696,12 +696,13 @@
   &__input {
     display: block;
     width: 100%;
-    border: none;background-color: $bg;
+    border: none;
+    background-color: $bg;
     margin-top: 4px;
     height: 60px;
     padding: 0 15px;
   }
-  &__btn{
+  &__btn {
     display: block;
     background-color: $title;
     text-transform: uppercase;
@@ -712,28 +713,46 @@
     width: 100%;
     cursor: pointer;
   }
-  &__error{
+  &__error {
     margin-top: 12px;
     color: $accent;
     display: inline-block;
   }
-  &__text{
+  &__text {
     margin-bottom: 25px;
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+.page-404 {
+  padding: 110px 0 120px;
+  &__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__content {
+    max-width: 570px;
+    width: 100%;
+  }
+  &__title {
+    color: #28384f;
+    margin-bottom: 20px;
+    @extend %roboto-700;
+    font-size: 48px;
+  }
+  &__text {
+    margin-bottom: 55px;
+    max-width: 470px;
+  }
+  &__link {
+    background-color: $accent;
+    text-transform: uppercase;
+    color: #ffff;
+    padding: 14px 35px;
+    @extend %roboto-400;
+    box-shadow: 0px 5px 25px 0px rgba(254, 62, 87, 0.35);
+  }
+}
 
 @import "media";
+
