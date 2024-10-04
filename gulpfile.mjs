@@ -16,7 +16,8 @@ const browserSyncInstance = browserSync.create();
 async function styles() {
   return src([
     'app/scss/style.scss',
-    'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.css' // Путь к вашему CSS файлу
+    'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.css', // Путь к вашему CSS файлу
+    'node_modules/ion-rangeslider/css/ion.rangeSlider.min.css',
   ])
     .pipe(autoprefixer({
       overrideBrowserslist: ['last 10 versions'],
@@ -32,8 +33,10 @@ function scripts() {
   return src([
     'node_modules/jquery/dist/jquery.js', // jQuery
     'node_modules/slick-carousel/slick/slick.js', // Slick
-    'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.js', // Slick
+    'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.js', // Slick
     'node_modules/rateyo/src/jquery.rateyo.js',
+    'node_modules/ion-rangeslider/js/ion.rangeSlider.min.js',
+    'node_modules/jquery-form-styler/dist/jquery.formstyler.js',
     'app/js/main.js' // Ваш файл с инициализацие'
   ])
     .pipe(concat('main.min.js'))
