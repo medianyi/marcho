@@ -7,24 +7,48 @@ import browserSync from 'browser-sync';
 import autoprefixer from 'gulp-autoprefixer';
 import { deleteAsync as del } from 'del';
 import imagemin from 'gulp-imagemin';
+import rename from 'gulp-rename';
+import nunjucksRender from 'gulp-nunjucks-render';
 import newer from 'gulp-newer';
 
 const sassCompilerInstance = sass(sassCompiler);
 
 const browserSyncInstance = browserSync.create();
 
+
+
+
+
+
+function browsersync() {
+  browserSyncInstance.init({
+    server: {
+      baseDir: 'app/'
+    },
+  });
+}
+
+function nunjucks() {
+  return src('app/*.njk')
+    .pipe(nunjucksRender())
+    .pipe(dest('app'))
+    .pipe(browserSyncInstance.stream());
+}
+
+
 async function styles() {
   return src([
-    'app/scss/style.scss',
-    'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.css', // Путь к вашему CSS файлу
-    'node_modules/ion-rangeslider/css/ion.rangeSlider.min.css',
+    'app/scss/*.scss',
   ])
+    .pipe(sassCompilerInstance({ outputStyle: 'compressed' }))
+    .pipe(rename({
+      suffix: '.min'
+    }))
     .pipe(autoprefixer({
       overrideBrowserslist: ['last 10 versions'],
       grid: true
     }))
-    .pipe(sassCompilerInstance({ outputStyle: 'compressed' }))
-    .pipe(concat('style.min.css'))
+
     .pipe(dest('app/css'))
     .pipe(browserSyncInstance.stream());
 }
@@ -45,13 +69,7 @@ function scripts() {
     .pipe(browserSyncInstance.stream());
 }
 
-function browsersync() {
-  browserSyncInstance.init({
-    server: {
-      baseDir: 'app/'
-    },
-  });
-}
+
 
 function cleanDist() {
   return del('dist');
@@ -75,7 +93,8 @@ function images() {
 }
 
 function watching() {
-  watch(['app/scss/**/*.scss'], styles);
+  watch(['app/**/*.scss'], styles);
+  watch(['app/*.njk'], nunjucks);
   watch(['app/js/**/*.js', '!app/js/main.min.js'], scripts);
   watch(['app/**/*.html']).on('change', browserSyncInstance.reload);
 }
@@ -88,9 +107,10 @@ export {
   browsersync,
   watching,
   images,
-  cleanDist
+  cleanDist,
+  nunjucks
 };
 
 export const build = series(cleanDist, images, building);
-export default parallel(styles, scripts, browsersync, watching);
+export default parallel(nunjucks, styles, scripts, browsersync, watching);
 
