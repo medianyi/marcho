@@ -25,6 +25,7 @@ function browsersync() {
     server: {
       baseDir: 'app/'
     },
+    notify: false,
   });
 }
 
@@ -95,8 +96,9 @@ function images() {
 function watching() {
   watch(['app/**/*.scss'], styles);
   watch(['app/*.njk'], nunjucks);
-  watch(['app/js/**/*.js', '!app/js/main.min.js'], scripts);
+  watch(['app/js/*.js', '!app/js/main.min.js'], scripts);
   watch(['app/**/*.html']).on('change', browserSyncInstance.reload);
+  watch(['app/*.html']).on('change', browserSyncInstance.reload);
 }
 
 

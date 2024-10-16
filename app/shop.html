@@ -5,17 +5,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="css/shop.min.css">
+  <link rel="stylesheet" href="css/style.min.css">
   <title>Document</title>
 </head>
 
 <body>
-<header class="header">
+ <header class="header">
   <div class="container">
     <div class="header__inner">
       <a class="logo" href="#">
         <img class="logo__img" src="images/logo.png" alt="logo" />
       </a>
       <nav class="menu">
+        <button class="menu__btn">
+          <span></span>
+        </button>
         <ul class="menu__list">
           <li class="menu__list-item">
             <a class="menu__list-link menu__list-link--active" href="#">home</a>
@@ -88,6 +92,10 @@
 
     <section class="shop">
       <div class="container">
+        filter-solid.svg
+        <button class="shop__filter-btn">
+<img class="shop__filter-btn-img" src="images/icons/filter-solid.svg" alt="search images">
+        </button>
         <div class="shop__inner">
           <div class="shop__filters filter">
 
@@ -289,7 +297,7 @@
 
           <div class="shop-content">
             <div class="shop-content__filter">
-              <div class="shop_-ontent__filter-buttons">
+              <div class="shop-content__filter-buttons">
                 <span>View</span>
                 <button class="shop-content__filter-btn shop-content__filter-btn--active button-grid">
                   <svg width="15px" height="15px">
