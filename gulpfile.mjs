@@ -7,27 +7,62 @@ import browserSync from 'browser-sync';
 import autoprefixer from 'gulp-autoprefixer';
 import { deleteAsync as del } from 'del';
 import imagemin from 'gulp-imagemin';
+import rename from 'gulp-rename';
+import nunjucksRender from 'gulp-nunjucks-render';
 import newer from 'gulp-newer';
 
 const sassCompilerInstance = sass(sassCompiler);
 
 const browserSyncInstance = browserSync.create();
 
+
+
+
+
+
+function browsersync() {
+  browserSyncInstance.init({
+    server: {
+      baseDir: 'app/'
+    },
+    notify: false,
+  });
+}
+
+function nunjucks() {
+  return src('app/*.njk')
+    .pipe(nunjucksRender())
+    .pipe(dest('app'))
+    .pipe(browserSyncInstance.stream());
+}
+
+
 async function styles() {
-  return src('app/scss/style.scss')
+  return src([
+    'app/scss/*.scss',
+  ])
+    .pipe(sassCompilerInstance({ outputStyle: 'compressed' }))
+    .pipe(rename({
+      suffix: '.min'
+    }))
     .pipe(autoprefixer({
       overrideBrowserslist: ['last 10 versions'],
       grid: true
     }))
-    .pipe(sassCompilerInstance({ outputStyle: 'compressed' }))
-    .pipe(concat('style.min.css'))
+
     .pipe(dest('app/css'))
     .pipe(browserSyncInstance.stream());
 }
 
 function scripts() {
   return src([
-    'app/js/main.js'
+    'node_modules/jquery/dist/jquery.js', // jQuery
+    'node_modules/slick-carousel/slick/slick.js', // Slick
+    'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.js', // Slick
+    'node_modules/rateyo/src/jquery.rateyo.js',
+    'node_modules/ion-rangeslider/js/ion.rangeSlider.min.js',
+    'node_modules/jquery-form-styler/dist/jquery.formstyler.js',
+    'app/js/main.js' // Ваш файл с инициализацие'
   ])
     .pipe(concat('main.min.js'))
     .pipe(uglify.default())
@@ -35,13 +70,7 @@ function scripts() {
     .pipe(browserSyncInstance.stream());
 }
 
-function browsersync() {
-  browserSyncInstance.init({
-    server: {
-      baseDir: 'app/'
-    },
-  });
-}
+
 
 function cleanDist() {
   return del('dist');
@@ -65,9 +94,11 @@ function images() {
 }
 
 function watching() {
-  watch(['app/scss/**/*.scss'], styles);
-  watch(['app/js/**/*.js', '!app/js/main.min.js'], scripts);
+  watch(['app/**/*.scss'], styles);
+  watch(['app/*.njk'], nunjucks);
+  watch(['app/js/*.js', '!app/js/main.min.js'], scripts);
   watch(['app/**/*.html']).on('change', browserSyncInstance.reload);
+  watch(['app/*.html']).on('change', browserSyncInstance.reload);
 }
 
 
@@ -78,9 +109,10 @@ export {
   browsersync,
   watching,
   images,
-  cleanDist
+  cleanDist,
+  nunjucks
 };
 
 export const build = series(cleanDist, images, building);
-export default parallel(styles, scripts, browsersync, watching);
+export default parallel(nunjucks, styles, scripts, browsersync, watching);
 

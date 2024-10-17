@@ -9,6 +9,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@fancyapps/fancybox": "^3.5.7",
     "browser-sync": "^3.0.2",
     "del": "^7.1.0",
     "gulp": "^5.0.0",
@@ -16,10 +17,16 @@
     "gulp-clean": "^0.4.0",
     "gulp-concat": "^2.6.1",
     "gulp-imagemin": "^9.1.0",
+    "gulp-nunjucks-render": "^2.2.3",
+    "gulp-rename": "^2.0.0",
     "gulp-sass": "^5.1.0",
     "gulp-uglify": "^3.0.2",
     "gulp-uglify-es": "^3.0.0",
-    "jquery": "^3.7.1"
+    "ion-rangeslider": "^2.3.1",
+    "jquery": "^3.7.1",
+    "jquery-form-styler": "^2.0.2",
+    "rateyo": "^2.3.2",
+    "slick-carousel": "^1.8.1"
   },
   "dependencies": {
     "gulp-newer": "^1.4.0",
